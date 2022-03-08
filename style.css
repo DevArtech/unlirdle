@@ -191,6 +191,12 @@ body {
     line-height: 50px;
     color: white;
     transition: .1s background-color ease-in-out;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .alpha:hover {
@@ -207,6 +213,12 @@ body {
     line-height: 50px;
     color: white;
     transition: .1s background-color ease-in-out;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 #enter:hover {
