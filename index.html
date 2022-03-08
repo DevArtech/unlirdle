@@ -20,6 +20,43 @@
         </div>
     </div>
 
+    <div class="modal" id="infoModal">
+        <div class="m-container" id="m-container">
+            <span data-id="modal-example" class="close">&times;</span>
+            <p>Guess the <strong>UNLIRDLE</strong> in six tries.</p>
+            <p>Each guess must be a valid five-letter word. Hit the enter button to submit.</p>
+            <p>After each guess, the color of the tiles will change to show how close your guess was to the word.</p>
+            <hr>
+            <p><strong>Examples</strong></p>
+            <div class="exampleRow">
+                <div class="exLetter" id="correct">A</div>
+                <div class="exLetter">M</div>
+                <div class="exLetter">B</div>
+                <div class="exLetter">E</div>
+                <div class="exLetter">R</div>
+            </div>
+            <p>The letter <strong>A</strong> is in the word and in the correct spot.</p>
+            <div class="exampleRow">
+                <div class="exLetter">P</div>
+                <div class="exLetter" id="spot">E</div>
+                <div class="exLetter">A</div>
+                <div class="exLetter">R</div>
+                <div class="exLetter">L</div>
+            </div>
+            <p>The letter <strong>E</strong> is in the word but in the wrong spot.</p>
+            <div class="exampleRow">
+                <div class="exLetter">M</div>
+                <div class="exLetter">A</div>
+                <div class="exLetter" id="invalid">S</div>
+                <div class="exLetter">O</div>
+                <div class="exLetter">N</div>
+            </div>
+            <p>The letter <strong>S</strong> is not in the word in any spot.</p>
+            <hr>
+            <p><strong>Play the UNLIRDLE as many times as you want!</strong></p>
+        </div>
+    </div>
+
     <div class="board">
         <div class="row">
             <div class="letter"></div>
