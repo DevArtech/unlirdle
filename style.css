@@ -140,21 +140,25 @@ body {
     line-height: 50px;
     font-size: 40px;
     font-weight: 600;
+    transition: transform 0.8s;
 }
 
 #correct {
     background-color: #489e5d;
     outline: 1px solid #489e5d;
+    transform: rotateX(360deg);
 }
 
 #spot {
     background-color: #c29c34;
     outline: 1px solid #c29c34;
+    transform: rotateX(360deg);
 }
 
 #invalid {
     background-color: #777777;
     outline: 1px solid #777777;
+    transform: rotateX(360deg);
 }
 
 .keyboard {
