@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;900&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #111111;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    outline: 1px solid #aaaaaa;
+}
+
+.leftSide {
+    float: left;
+    margin-left: 10px;
+}
+
+.rightSide {
+    float: right;
+    margin-right: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo {
+    color: #eeeeee
+}
+
+.menu {
+    color: #eeeeee
+}
+
+.board {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -58.5%);
+    width: 450px;
+    height: 535px;
+    border-radius: 5px;
+    display: block;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 8px;
+}
+
+.letter {
+    outline: 1px solid #aaaaaa;
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+}
+
+.keyboard {
+    position: fixed;
+    display: block;
+    width: 550px;
+    left: 50%;
+    bottom: 10px;
+    transform: translate(-50%, 0%);
+    margin: 0 auto;
+}
+
+.keyRow {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.alpha {
+    background-color: #aaaaaa;
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 50px;
+    color: white;
+    transition: .1s background-color ease-in-out;
+}
+
+.alpha:hover {
+    background-color: #eeeeee;
+    cursor: pointer;
+}
+
+#enter {
+    background-color: #aaaaaa;
+    width: 80px;
+    height: 50px;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 50px;
+    color: white;
+    transition: .1s background-color ease-in-out;
+}
+
+#enter:hover {
+    background-color: #eeeeee;
+    cursor: pointer;
+}
+
+#back {
+    background-color: #aaaaaa;
+    width: 80px;
+    height: 50px;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 50px;
+    color: white;
+    transition: .1s background-color ease-in-out;
+}
+
+#back:hover {
+    background-color: #eeeeee;
+    cursor: pointer;
+}
