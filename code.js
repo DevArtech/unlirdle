@@ -14,7 +14,7 @@ let user_word = [];
 
 window.onload = function () {
 
-    localStorage.removeItem("hasCodeRunBefore"); // REMOVE LATER
+    //localStorage.removeItem("hasCodeRunBefore"); // REMOVE LATER
 
     if (localStorage.getItem("hasCodeRunBefore") === null) {
         setTimeout(function() {
