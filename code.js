@@ -1,3 +1,8 @@
+document.body.style.transform = 'scale(' + window.screen.availHeight/1.25 + ')';
+document.body.style['-o-transform'] = 'scale(' + window.screen.availHeight/1.25 + ')';
+document.body.style['-webkit-transform'] = 'scale(' + window.screen.availHeight/1.25 + ')';
+document.body.style['-moz-transform'] = 'scale(' + window.screen.availHeight/1.25 + ')';
+
 const modal = document.getElementById('infoModal');
 const modalCont = document.getElementById('m-container');
 const span = document.getElementsByClassName("close")[0];
