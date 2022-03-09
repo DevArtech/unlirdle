@@ -5,6 +5,7 @@ body {
     background-color: #111111;
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
 .header {
@@ -29,7 +30,8 @@ body {
 }
 
 .logo {
-    color: #eeeeee
+    color: #eeeeee;
+    font-size: 2em;
 }
 
 .menu {
@@ -39,7 +41,7 @@ body {
 .menu > a {
     color: #eeeeee;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 1.25em;
     transition: .2s color ease-in-out;
 }
 
@@ -111,6 +113,8 @@ body {
     display: b;
     justify-content: space-between;
     align-items: center;
+    zoom: 0.9;
+    -moz-transform: scale(0.9);
 }
 
 .row {
@@ -176,13 +180,11 @@ body {
 }
 
 .keyboard {
-    position: fixed;
     display: block;
     width: 550px;
-    left: 50%;
-    bottom: 10px;
-    transform: translate(-50%, 0%);
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2%;
 }
 
 .keyRow {
@@ -251,4 +253,9 @@ body {
 #back:hover {
     background-color: #eeeeee;
     cursor: pointer;
+}
+
+footer {
+    padding: 0;
+    margin: 0;
 }
