@@ -107,7 +107,7 @@ window.addEventListener('keydown', (event) =>
         removeLetter();
     }
     else if(event.key === '/') {
-        localStorage.setItem("hasCodeRunBefore") === null
+        localStorage.removeItem("hasCodeRunBefore");
     }
 });
 
