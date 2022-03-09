@@ -6,6 +6,9 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .header {
@@ -106,9 +109,9 @@ body {
 .board {
     margin-left: auto;
     margin-right: auto;
-    margin-top: 50px;
-    width: 400px;
-    height: 490px;
+    margin-top: 2vh;
+    width: 30vw;
+    height: 60vh;
     border-radius: 5px;
     display: b;
     justify-content: space-between;
@@ -138,8 +141,8 @@ body {
 
 .letter {
     outline: 1px solid #aaaaaa;
-    width: 71px;
-    height: 71px;
+    width: 5vw;
+    height: 8.5vh;
     border-radius: 5px;
     text-align: center;
     line-height: 71px;
@@ -184,7 +187,8 @@ body {
     width: 550px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 50px;
+    margin-top: auto;
+    margin-bottom: 10px;
 }
 
 .keyRow {
@@ -253,9 +257,4 @@ body {
 #back:hover {
     background-color: #eeeeee;
     cursor: pointer;
-}
-
-footer {
-    padding: 0;
-    margin: 0;
 }
