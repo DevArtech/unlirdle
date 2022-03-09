@@ -102,14 +102,13 @@ body {
 }
 
 .board {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -58.5%);
-    width: 450px;
-    height: 535px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3%;
+    width: 400px;
+    height: 490px;
     border-radius: 5px;
-    display: block;
+    display: b;
     justify-content: space-between;
     align-items: center;
 }
@@ -135,11 +134,11 @@ body {
 
 .letter {
     outline: 1px solid #aaaaaa;
-    width: 80px;
-    height: 80px;
+    width: 71px;
+    height: 71px;
     border-radius: 5px;
     text-align: center;
-    line-height: 80px;
+    line-height: 71px;
     font-size: 40px;
     font-weight: 600;
     color: #eeeeee;
