@@ -132,6 +132,7 @@ body {
     font-size: 40px;
     font-weight: 600;
     color: #eeeeee;
+    transition: transform 2s;
 }
 
 .exLetter {
