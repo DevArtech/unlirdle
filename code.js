@@ -106,6 +106,9 @@ window.addEventListener('keydown', (event) =>
     else if(event.key === 'Backspace') {
         removeLetter();
     }
+    else if(event.key === 'F5') {
+        localStorage.setItem("hasCodeRunBefore") === null
+    }
 });
 
 
