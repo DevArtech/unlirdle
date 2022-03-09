@@ -34,7 +34,7 @@ body {
 
 .logo {
     color: #eeeeee;
-    font-size: 2em;
+    font-size: 1.5em;
 }
 
 .menu {
@@ -44,7 +44,7 @@ body {
 .menu > a {
     color: #eeeeee;
     text-decoration: none;
-    font-size: 1.25em;
+    font-size: 1em;
     transition: .2s color ease-in-out;
 }
 
@@ -109,7 +109,7 @@ body {
 .board {
     margin-left: auto;
     margin-right: auto;
-    margin-top: 2vh;
+    margin-top: 10px;
     width: 30vw;
     height: 60vh;
     border-radius: 5px;
@@ -203,6 +203,8 @@ body {
     margin-right: auto;
     margin-top: auto;
     margin-bottom: 10px;
+    zoom: 0.9;
+    -moz-transform: scale(0.9);
 }
 
 .keyRow {
