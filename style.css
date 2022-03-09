@@ -36,6 +36,17 @@ body {
     color: #eeeeee
 }
 
+.menu > a {
+    color: #eeeeee;
+    text-decoration: none;
+    font-size: 20px;
+    transition: .2s color ease-in-out;
+}
+
+.menu > a:hover {
+    color: #489e5d;
+}
+
 .modal {
     display: none;
     position: fixed;
