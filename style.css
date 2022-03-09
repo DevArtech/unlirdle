@@ -113,7 +113,7 @@ body {
     width: 30vw;
     height: 60vh;
     border-radius: 5px;
-    display: b;
+    display: block;
     justify-content: space-between;
     align-items: center;
     zoom: 0.9;
