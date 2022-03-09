@@ -19,6 +19,96 @@ let yellow_letters = [];
 let yellow_letters_temp = [];
 let gray_letters = [];
 
+window.addEventListener('keydown', (event) =>
+{
+    if(event.key === 'a') 
+    {
+        addLetter('a');
+    }
+    else if(event.key === 'b') {
+        addLetter('b');
+    }
+    else if(event.key === 'c') {
+        addLetter('c');
+    }
+    else if(event.key === 'd') {
+        addLetter('d');
+    }
+    else if(event.key === 'e') {
+        addLetter('e');
+    }
+    else if(event.key === 'f') {
+        addLetter('f');
+    }
+    else if(event.key === 'g') {
+        addLetter('g');
+    }
+    else if(event.key === 'h') {
+        addLetter('h');
+    }
+    else if(event.key === 'i') {
+        addLetter('i');
+    }
+    else if(event.key === 'j') {
+        addLetter('j');
+    }
+    else if(event.key === 'k') {
+        addLetter('k');
+    }
+    else if(event.key === 'l') {
+        addLetter('l');
+    }
+    else if(event.key === 'm') {
+        addLetter('m');
+    }
+    else if(event.key === 'n') {
+        addLetter('n');
+    }
+    else if(event.key === 'o') {
+        addLetter('o');
+    }
+    else if(event.key === 'p') {
+        addLetter('p');
+    }
+    else if(event.key === 'q') {
+        addLetter('q');
+    }
+    else if(event.key === 'r') {
+        addLetter('r');
+    }
+    else if(event.key === 's') {
+        addLetter('s');
+    }
+    else if(event.key === 't') {
+        addLetter('t');
+    }
+    else if(event.key === 'u') {
+        addLetter('u');
+    }
+    else if(event.key === 'v') {
+        addLetter('v');
+    }
+    else if(event.key === 'w') {
+        addLetter('w');
+    }
+    else if(event.key === 'x') {
+        addLetter('x');
+    }
+    else if(event.key === 'y') {
+        addLetter('y');
+    }
+    else if(event.key === 'z') {
+        addLetter('z');
+    }
+    else if(event.key === 'Enter') {
+        game_checker(the_word, user_word, green_letters, yellow_letters_temp, gray_letters)
+    }
+    else if(event.key === 'Backspace') {
+        removeLetter();
+    }
+});
+
+
 window.onload = function () {
 
     //localStorage.removeItem("hasCodeRunBefore"); // REMOVE LATER
