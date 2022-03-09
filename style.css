@@ -200,9 +200,9 @@ html, body {
 .keyboard {
     width: 100%;
     margin-top: auto;
-    margin-bottom: 50px;
-    zoom: 0.8;
-    -moz-transform: scale(0.8);
+    margin-bottom: 25px;
+    zoom: 0.9;
+    -moz-transform: scale(0.9);
 }
 
 .keyRow {
