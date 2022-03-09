@@ -169,7 +169,7 @@ function addLetter(letter) {
         user_word.push(letter);
         for(let j = 0; j < charSpots.length; j++) {
             if(charSpots[j].className == "letter") {
-                charSpots[j].innerHTML = letter.toString();
+                charSpots[j].firstChild.innerHTML = letter.toString();
                 charSpots[j].classList.add('sel');
                 j = charSpots.length;
             }
@@ -186,7 +186,7 @@ function removeLetter() {
         user_word.pop();
 
         let j = user_word.length;
-        charSpots[j].innerHTML = '';
+        charSpots[j].firstChild.innerHTML = '';
         charSpots[j].classList.remove('sel');
         j = charSpots.length;
 
