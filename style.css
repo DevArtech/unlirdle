@@ -199,8 +199,7 @@ html, body {
 
 .keyboard {
     width: 100%;
-    margin-top: auto;
-    margin-bottom: 25px;
+    margin-top: -20px;
     zoom: 0.9;
     -moz-transform: scale(0.9);
 }
