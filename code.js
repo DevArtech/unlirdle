@@ -1,5 +1,9 @@
 const modal = document.getElementById('infoModal');
 const modalCont = document.getElementById('m-container');
+
+const warnModal= document.getElementById('warnModal');
+const wModalCont = document.getElementById('wm-container');
+
 const span = document.getElementsByClassName("close")[0];
 const correct = document.getElementById('a');
 const spot = document.getElementById('b');
@@ -10,7 +14,7 @@ let charSpots = [];
 
 let active_row = 0;
 
-let word_list = ["amber", "pearl", "crane", "helps", "mason", "prank", "plots", "warns", "lucks"];
+let word_list = ["pearl", "amber", "court", "count", "cloth", "clock", "reach", "teach", "peach", "beach", "insert", "tools", "fools", "pools", "spool", "cruel", "quote", "quick", "hairy", "store", "share", "trick", "trout", "helps", "files", "topic", "warms", "worms", "dream", "burns", "limes", "night", "lemon", "fruit", "water", "drops", "rains", "cloud", "foggy", "diner", "march", "straw", "jokes", "other", "sense", "aware", "awake", "alarm", "roses", "tulip", "makes", "marks", "stripe", "solid", "light", "fight", "kites", "frogs", "marsh", "grows", "funny", "heavy", "floor", "flood", "strike", "rebel", "learn", "words", "goods", "views", "files", "bunch", "works", "ocean", "inbox", "green", "blues", "raven", "color", "tales", "tails", "snaps", "woods", "stars", "enjoy", "carry", "woman", "women", "books", "skull", "flour", "latin", "bones", "dolls", "storm", "snows", "saves", "saved", "saver", "black", "house", "fiber", "bells", "goals", "slice", "spice", "hates", "gives", "paper", "story", "sweet", "witch", "apart", "armor", "purse", "gears", "nails", "spring", "girls", "drive", "every", "world", "karma", "range", "model", "shark", "charm", "board", "ferry", "verse", "serve", "canal", "shame", "total", "loyal", "drunk", "flush", "blush", "crush", "brake", "brain", "quake", "punch", "lunch", "risky", "rests", "trunk", "train", "stunk", "stink", "skunk", "trace", "frame", "grade", "grape", "grain", "cause", "pause", "quiet", "penny", "dense", "fence", "bench", "stake", "crate", "grate", "coach", "keeps", "dates", "chalk", "frees", "means", "large", "group", "small", "stray", "terms", "teams", "style", "movie", "login", "video", "image", "bless", "slows", "crows", "about", "parts", "apply", "diets", "media", "kitty", "birds", "songs", "blogs", "notch", "month", "thank", "seats", "shear", "sheer", "issue", "opium", "walls", "fuzzy", "adopt", "admit", "moans", "trees", "crane", "mason", "prank", "warns", "lucks"];
 let the_word = word_list[Math.floor(Math.random() * word_list.length)];
 let user_word = [];
 
@@ -142,7 +146,6 @@ window.onload = function () {
 
     rows[active_row].classList.add('active');
     charSpots = rows[active_row].children;
-    console.log(charSpots);
 }
 
 span.onclick = function() {
@@ -163,6 +166,18 @@ window.onclick = function(event) {
     }
 }
 
+function warning(warning) {
+    warnModal.classList.add('active');
+    wModalCont.innerHTML = warning;
+    wModalCont.classList.add('active');
+    setTimeout(function() {
+        wModalCont.classList.remove('active');
+        setTimeout(function () {
+            warnModal.classList.remove('active')
+        }, 250);
+    }, 2000);
+}
+
 function addLetter(letter) {
     if(user_word.length < 5) {
         letter = letter.toUpperCase();
@@ -176,6 +191,7 @@ function addLetter(letter) {
         }
     }
     else {
+        warning('Max character limit reached!');
         console.log("Max character limit reached")
     }
 }
@@ -189,10 +205,9 @@ function removeLetter() {
         charSpots[j].firstChild.innerHTML = '';
         charSpots[j].classList.remove('sel');
         j = charSpots.length;
-
-        console.log(user_word.join(''));
     }
     else {
+        warning('No more letters to delete!');
         console.log("No more letters to remove")
     }
 }
@@ -250,6 +265,7 @@ function game_checker(gWord, uWord, green, yellow, gray) {
                     user_word = [];
                     yellow_letters_temp = [];
                     k = -1;
+                    keyboardUpdate();
                 } 
                 else if(green_letters.length >= 5) {
                 console.log("Winner!");
@@ -258,6 +274,37 @@ function game_checker(gWord, uWord, green, yellow, gray) {
         }, 250);
     }
     else {
+        warning('5 Letters Needed')
         console.log("5 Letters Needed");
     }
+}
+
+function keyboardUpdate() {
+    let keyLetters = document.getElementsByClassName("alpha");
+
+    console.log(green_letters);
+    console.log(yellow_letters);
+    console.log(gray_letters);
+
+    for (let i = 0; i < keyLetters.length; i++) {
+        if(green_letters.includes(keyLetters[i].getAttribute('id').toString().toUpperCase())) {
+            keyLetters[i].classList.add('correct');
+        }
+        if(yellow_letters.includes(keyLetters[i].getAttribute('id').toString().toUpperCase())) {
+            keyLetters[i].classList.add('spot');
+        }
+        if(gray_letters.includes(keyLetters[i].getAttribute('id').toString().toUpperCase())) {
+            keyLetters[i].classList.add('invalid');
+        }
+    }
+}
+
+function toLowerArray(array) {
+
+    let returnArray = [];
+
+    for(let i = 0; i < array.length; i++) {
+        returnArray.push(array[i].toLowerCase());
+    }
+    return returnArray;
 }
