@@ -106,7 +106,7 @@ window.addEventListener('keydown', (event) =>
     else if(event.key === 'Backspace') {
         removeLetter();
     }
-    else if(event.key === '#') {
+    else if(event.key === '/') {
         localStorage.setItem("hasCodeRunBefore") === null
     }
 });
