@@ -5,7 +5,6 @@ body {
     background-color: #111111;
     margin: 0;
     padding: 0;
-    zoom: 0.8;
 }
 
 .header {
@@ -13,8 +12,6 @@ body {
     justify-content: space-between;
     align-items: center;
     outline: 1px solid #aaaaaa;
-    width: 100%;
-    -moz-transform: scale(0.8);
 }
 
 .leftSide {
@@ -115,7 +112,6 @@ body {
     display: block;
     justify-content: space-between;
     align-items: center;
-    -moz-transform: scale(0.8);
 }
 
 .row {
@@ -188,7 +184,6 @@ body {
     bottom: 10px;
     transform: translate(-50%, 0%);
     margin: 0 auto;
-    -moz-transform: scale(0.8);
 }
 
 .keyRow {
