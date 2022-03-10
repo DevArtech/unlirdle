@@ -128,6 +128,11 @@ html, body {
     opacity: 1;
 }
 
+.wm-container.active {
+    transform: translate(-50%, -100%);
+    opacity: 1;
+}
+
 .close {
     color: #aaa;
     float: right;
