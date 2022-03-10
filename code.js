@@ -185,7 +185,7 @@ function warning(warning) {
         setTimeout(function () {
             warnModal.classList.remove('active')
         }, 250);
-    }, 2000);
+    }, 1000);
 }
 
 function addLetter(letter) {
@@ -201,8 +201,7 @@ function addLetter(letter) {
         }
     }
     else {
-        warning('Max character limit reached!');
-        console.log("Max character limit reached")
+        console.log("Max limit reached")
     }
 }
 
@@ -217,7 +216,6 @@ function removeLetter() {
         j = charSpots.length;
     }
     else {
-        warning('No more letters to delete!');
         console.log("No more letters to remove")
     }
 }
@@ -304,8 +302,8 @@ function game_checker(gWord, uWord, green, yellow, gray) {
         }, 250);
     }
     else {
-        warning('5 Letters Needed')
-        console.log("5 Letters Needed");
+        warning('Not enough letters')
+        console.log("Not enough letters");
     }
 }
 
