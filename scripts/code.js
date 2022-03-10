@@ -11,7 +11,6 @@ const invalid = document.getElementById('|');
 const letters = document.getElementsByClassName('alpha');
 const rows = document.getElementsByClassName('row');
 let charSpots = [];
-let running = false;
 
 let active_row = 0;
 
@@ -24,7 +23,6 @@ let gray_letters = [];
 
 window.addEventListener('keydown', (event) =>
 {
-    if(running == false) {
     if(event.key === 'a') 
     {
         addLetter('a');
@@ -105,9 +103,7 @@ window.addEventListener('keydown', (event) =>
         addLetter('z');
     }
     else if(event.key === 'Enter') {
-        if(running == false) {
-            Enter()
-        }
+        Enter()
     }
     else if(event.key === 'Backspace') {
         removeLetter();
@@ -115,16 +111,35 @@ window.addEventListener('keydown', (event) =>
     else if(event.key === '/') {
         localStorage.removeItem("hasCodeRunBefore");
     }
-}
 });
 
 function Enter() {
-    if(running == false) {
-        game_checker(the_word, user_word, green_letters, yellow_letters, gray_letters)
-    }
+    game_checker(the_word, user_word, green_letters, yellow_letters, gray_letters);
 }
 
 window.onload = function () {
+
+    var isChromium = window.chrome;
+    var winNav = window.navigator;
+    var vendorName = winNav.vendor;
+    var isOpera = typeof window.opr !== "undefined";
+    var isIEedge = winNav.userAgent.indexOf("Edg") > -1;
+    var isIOSChrome = winNav.userAgent.match("CriOS");
+
+    if (isIOSChrome) {
+        keyboardEle = document.getElementById("keyboard");
+        console.log(keyboardEle);
+    } else if (
+       isChromium !== null &&
+       typeof isChromium !== "undefined" &&
+       vendorName === "Google Inc." &&
+       isOpera === false &&
+       isIEedge === false
+    ) {
+        document.getElementById("keyboard").style.marginTop = "auto";
+        document.getElementById("keyboard").style.marginBottom = "10px";
+    }
+
 
     //localStorage.removeItem("hasCodeRunBefore"); // REMOVE LATER
 
@@ -221,11 +236,12 @@ function removeLetter() {
 let k = 0;
 
 function game_checker(gWord, uWord, green, yellow, gray) {
+    let temp_user_word = user_word.join('').toLowerCase();
+    console.log(temp_user_word);
     player_word = uWord.join('').toLowerCase();
     if(acceptable_words.includes(player_word) || backup_gameWords.includes(player_word)) {
     if(uWord.length == 5) {
     setTimeout(function() { 
-        running = true;
         let yellow_letters_temp = [];
         gWord = gWord.toUpperCase();
 
@@ -273,7 +289,7 @@ function game_checker(gWord, uWord, green, yellow, gray) {
                 }
             } 
             else {
-                if(green_letters.length < 5) {
+                if(temp_user_word != the_word) {
                     let lettersInput = user_word;
                     let letterValue = [];
                     for(let i = 0; i < lettersInput.length; i++) {
@@ -288,15 +304,21 @@ function game_checker(gWord, uWord, green, yellow, gray) {
                         }
                     }
                     active_row++;
-                    rows[active_row].classList.add('active');
-                    charSpots = rows[active_row].children;
-                    k = 0;
-                    user_word = [];
-                    keyboardUpdate(lettersInput, letterValue);
+                    if(active_row < 6) {
+                        rows[active_row].classList.add('active');
+                        charSpots = rows[active_row].children;
+                        k = 0;
+                        user_word = [];
+                        keyboardUpdate(lettersInput, letterValue);
+                    }
+                    else if(active_row == 6) {
+                        warning("The word was: " + the_word, 3000);
+                    }
                 } 
-                else if(green_letters.length >= 5) {
-                console.log("Winner!");
-                warning("<strong>Amazing!</strong>", 3000);
+                else if(temp_user_word == the_word) {
+                    console.log("Winner!");
+                    warning("<strong>Amazing!</strong>", 3000);
+                    bop();
                 }
             }  
         }, 250);
@@ -309,6 +331,20 @@ function game_checker(gWord, uWord, green, yellow, gray) {
     else {
         warning('Invalid word', 1000)
         console.log("Invalid word");
+    }
+}
+
+let p = 0;
+
+function bop() {
+    if(p < charSpots.length) {
+        object = charSpots[p];
+        charSpots[p].classList.add("bop");
+        setTimeout(function() {
+            object.classList.remove("bop");
+        }, 250);
+        p++;
+        bop();
     }
 }
 
@@ -352,8 +388,6 @@ function keyboardUpdate(letters, value) {
             }
         }
     }
-
-    running = false;
 }
 
 const acceptable_words = ['aahed',
