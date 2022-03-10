@@ -5,12 +5,13 @@ const warnModal= document.getElementById('warnModal');
 const wModalCont = document.getElementById('wm-container');
 
 const span = document.getElementsByClassName("close")[0];
-const correct = document.getElementById('a');
-const spot = document.getElementById('b');
-const invalid = document.getElementById('c');
+const correct = document.getElementById('}');
+const spot = document.getElementById('{');
+const invalid = document.getElementById('|');
 const letters = document.getElementsByClassName('alpha');
 const rows = document.getElementsByClassName('row');
 let charSpots = [];
+let running = false;
 
 let active_row = 0;
 
@@ -25,6 +26,7 @@ let gray_letters = [];
 
 window.addEventListener('keydown', (event) =>
 {
+    if(running == false) {
     if(event.key === 'a') 
     {
         addLetter('a');
@@ -105,7 +107,9 @@ window.addEventListener('keydown', (event) =>
         addLetter('z');
     }
     else if(event.key === 'Enter') {
-        game_checker(the_word, user_word, green_letters, yellow_letters_temp, gray_letters)
+        if(running == false) {
+            Enter()
+        }
     }
     else if(event.key === 'Backspace') {
         removeLetter();
@@ -113,8 +117,14 @@ window.addEventListener('keydown', (event) =>
     else if(event.key === '/') {
         localStorage.removeItem("hasCodeRunBefore");
     }
+}
 });
 
+function Enter() {
+    if(running == false) {
+        game_checker(the_word, user_word, green_letters, yellow_letters_temp, gray_letters)
+    }
+}
 
 window.onload = function () {
 
@@ -212,15 +222,15 @@ function removeLetter() {
     }
 }
 
-let k = -1;
+let k = 0;
 
 function game_checker(gWord, uWord, green, yellow, gray) {
     if(uWord.length == 5) {
     setTimeout(function() { 
+        running = true;
         gWord = gWord.toUpperCase();
 
         let gArray = gWord.split("");
-        k++;
 
         if(k < uWord.length) {
             char = uWord[k];
@@ -229,24 +239,29 @@ function game_checker(gWord, uWord, green, yellow, gray) {
                     {
                         gray.push(char);
                         charSpots[k].setAttribute('id', 'invalid');
+                        k++;
                         game_checker(the_word, user_word, green_letters, yellow_letters, gray_letters);
                     }
                     else 
                     {
                         if(gArray[k] == char) {
                             if (green.includes(char)) {
-                                //Do nothing
+                                charSpots[k].setAttribute('id', 'correct');
+                                k++;
+                                game_checker(the_word, user_word, green_letters, yellow_letters, gray_letters);
                             } 
                             else {
                                 green.push(char);
+                                charSpots[k].setAttribute('id', 'correct');
+                                k++;
+                                game_checker(the_word, user_word, green_letters, yellow_letters, gray_letters);
                             }
-                            charSpots[k].setAttribute('id', 'correct');
-                            game_checker(the_word, user_word, green_letters, yellow_letters, gray_letters);
                         }
                         else {
                             yellow.push(char);
                             charSpots[k].setAttribute('id', 'spot');
                             yellow_letters_temp = yellow;
+                            k++;
                             game_checker(the_word, user_word, green_letters, yellow_letters, gray_letters);
                         }   
                     }
@@ -254,18 +269,33 @@ function game_checker(gWord, uWord, green, yellow, gray) {
                 else {
                     gray.push(char);
                     charSpots[k].setAttribute('id', 'invalid');
+                    k++;
                     game_checker(the_word, user_word, green_letters, yellow_letters, gray_letters);
                 }
             } 
             else {
                 if(green_letters.length < 5) {
+                    let lettersInput = user_word;
+                    let letterValue = [];
+                    for(let i = 0; i < lettersInput.length; i++) {
+                        if(charSpots[i].getAttribute('id') === "correct") {
+                            letterValue.push(2);
+                        }
+                        else if(charSpots[i].getAttribute('id') === "spot") {
+                            letterValue.push(1);
+                        }
+                        else if(charSpots[i].getAttribute('id') === "invalid") {
+                            letterValue.push(0);
+                        }
+                    }
                     active_row++;
                     rows[active_row].classList.add('active');
                     charSpots = rows[active_row].children;
-                    user_word = [];
+                    console.log(charSpots);
                     yellow_letters_temp = [];
-                    k = -1;
-                    keyboardUpdate();
+                    k = 0;
+                    user_word = [];
+                    keyboardUpdate(lettersInput, letterValue);
                 } 
                 else if(green_letters.length >= 5) {
                 console.log("Winner!");
@@ -279,32 +309,20 @@ function game_checker(gWord, uWord, green, yellow, gray) {
     }
 }
 
-function keyboardUpdate() {
-    let keyLetters = document.getElementsByClassName("alpha");
+function keyboardUpdate(letters, value) {
 
-    console.log(green_letters);
-    console.log(yellow_letters);
-    console.log(gray_letters);
-
-    for (let i = 0; i < keyLetters.length; i++) {
-        if(green_letters.includes(keyLetters[i].getAttribute('id').toString().toUpperCase())) {
-            keyLetters[i].classList.add('correct');
+    for (let i = 0; i < letters.length; i++) {
+        let letterKey = document.getElementById(letters[i].toLowerCase());
+        if(value[i] === 0) {
+            letterKey.classList.add('invalid');
         }
-        if(yellow_letters.includes(keyLetters[i].getAttribute('id').toString().toUpperCase())) {
-            keyLetters[i].classList.add('spot');
+        if(value[i] === 1) {
+            letterKey.classList.add('spot');
         }
-        if(gray_letters.includes(keyLetters[i].getAttribute('id').toString().toUpperCase())) {
-            keyLetters[i].classList.add('invalid');
+        if(value[i] === 2) {
+            letterKey.classList.add('correct');
         }
     }
-}
 
-function toLowerArray(array) {
-
-    let returnArray = [];
-
-    for(let i = 0; i < array.length; i++) {
-        returnArray.push(array[i].toLowerCase());
-    }
-    return returnArray;
+    running = false;
 }
