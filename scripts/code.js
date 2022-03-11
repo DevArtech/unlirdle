@@ -4,6 +4,9 @@ const modalCont = document.getElementById('m-container');
 const warnModal= document.getElementById('warnModal');
 const wModalCont = document.getElementById('wm-container');
 
+const statsModal= document.getElementById('statsModal');
+const sModalCont = document.getElementById('sm-container');
+
 const span = document.getElementsByClassName("close")[0];
 const correct = document.getElementById('}');
 const spot = document.getElementById('{');
@@ -20,6 +23,19 @@ let user_word = [];
 let green_letters = [];
 let yellow_letters = [];
 let gray_letters = [];
+
+let wins = 0;
+let gamesPlayed = 0;
+let percentWin = 0;
+let cStreak = 0;
+let mStreak = 0;
+
+let oneVar = localStorage.getItem("one");
+let twoVar = localStorage.getItem("two");
+let threeVar = localStorage.getItem("three");
+let fourVar = localStorage.getItem("four");
+let fiveVar = localStorage.getItem("five");
+let sixVar = localStorage.getItem("six");
 
 window.addEventListener('keydown', (event) =>
 {
@@ -148,6 +164,7 @@ window.onload = function () {
             modal.classList.add('active');
             setTimeout(function() {
                 modalCont.classList.add('active');
+                modal.style.zIndex = 5;
                 setTimeout(function() {
                     correct.setAttribute('id', 'correct');
                     spot.setAttribute('id', 'spot');
@@ -156,6 +173,18 @@ window.onload = function () {
             }, 100);
         }, 500);
         localStorage.setItem("hasCodeRunBefore", true);
+        localStorage.setItem("wins", 0);
+        localStorage.setItem("gPlayed", 0);
+        localStorage.setItem("pWin", 0);
+        localStorage.setItem("cStreak", 0);
+        localStorage.setItem("mStreak", 0);
+        localStorage.setItem("gPlayed", 0);
+        localStorage.setItem("one", 0);
+        localStorage.setItem("two", 0);
+        localStorage.setItem("three", 0);
+        localStorage.setItem("four", 0);
+        localStorage.setItem("five", 0);
+        localStorage.setItem("six", 0);
     }
 
     for (var i = 0; i < letters.length; i++) {
@@ -169,6 +198,89 @@ window.onload = function () {
 
     rows[active_row].classList.add('active');
     charSpots = rows[active_row].children;
+
+    wins = localStorage.getItem("wins");
+    gamesPlayed = localStorage.getItem("gPlayed");
+    percentWin = localStorage.getItem("pWin");
+    cStreak = localStorage.getItem("cStreak");
+    mStreak = localStorage.getItem("mStreak");
+
+    let docWins = document.getElementById("played");
+    let docPer = document.getElementById("winPercent");
+    let docCStreak = document.getElementById("currentStreak");
+    let docMStreak = document.getElementById("maxStreak");
+
+    docWins.innerHTML = wins.toString() + "<p style='width: 100%; font-size: 12px;'>Played</p>";
+    docPer.innerHTML = percentWin.toString() + "% <p style='width: 100%; font-size: 12px;'>Win %</p>";
+    docCStreak.innerHTML = cStreak.toString() + "<p style='width: 100%; font-size: 12px;'>Current Streak</p>";
+    docMStreak.innerHTML = mStreak.toString() + "<p style='width: 100%; font-size: 12px;'>Max Streak</p>";
+
+    let one = document.getElementById("one");
+    let two = document.getElementById("two");
+    let three = document.getElementById("three");
+    let four = document.getElementById("four");
+    let five = document.getElementById("five");
+    let six = document.getElementById("six");
+
+    let oV = parseInt(localStorage.getItem("one"));
+    let twV = parseInt(localStorage.getItem("two"));
+    let thV = parseInt(localStorage.getItem("three"));
+    let foV = parseInt(localStorage.getItem("four"));
+    let fiV = parseInt(localStorage.getItem("five"));
+    let sV = parseInt(localStorage.getItem("six"));
+    if(oV > 0) {
+        one.children[0].style.width = Math.round(((oV / gamesPlayed) * 100) - 10).toString() + "%";
+        one.children[0].innerHTML = oV.toString();
+    }
+    else {
+        one.children[0].style.width = "1%";
+        one.children[0].innerHTML = "0";
+    }
+
+    if(twV > 0) {
+        two.children[0].style.width = Math.round(((twV / gamesPlayed) * 100) - 10).toString() + "%";
+        two.children[0].innerHTML = twV.toString();
+    }
+    else {
+        two.children[0].style.width = "1%";
+        two.children[0].innerHTML = "0";
+    }
+
+    if(thV > 0) {
+        three.children[0].style.width = Math.round(((thV / gamesPlayed) * 100) - 10).toString() + "%";
+        three.children[0].innerHTML = thV.toString();
+    }
+    else {
+        three.children[0].style.width = "1%";
+        three.children[0].innerHTML = "0";
+    }
+
+    if(foV > 0) {
+        four.children[0].style.width = Math.round(((foV / gamesPlayed) * 100) - 10).toString() + "%";
+        four.children[0].innerHTML = foV.toString();
+    }
+    else {
+        four.children[0].style.width = "1%";
+        four.children[0].innerHTML = "0";
+    }
+
+    if(fiV > 0) {
+        five.children[0].style.width = Math.round(((fiV / gamesPlayed) * 100) - 10).toString() + "%";
+        five.children[0].innerHTML = fiV.toString();
+    }
+    else {
+        five.children[0].style.width = "1%";
+        five.children[0].innerHTML = "0";
+    }
+
+    if(sV > 0) {
+        six.children[0].style.width = Math.round(((sV / gamesPlayed) * 100) - 10).toString() + "%";
+        six.children[0].innerHTML = sV.toString();
+    }
+    else {
+        six.children[0].style.width = "1%";
+        six.children[0].innerHTML = "0";
+    }
 }
 
 span.onclick = function() {
@@ -176,6 +288,10 @@ span.onclick = function() {
     
     setTimeout(function() {
         modal.classList.remove('active');
+        correct.setAttribute('id', '{');
+        spot.setAttribute('id', '}');
+        invalid.setAttribute('id', '|');
+        modal.style.zIndex = 1;
     }, 250);
 }
 
@@ -185,8 +301,112 @@ window.onclick = function(event) {
 
         setTimeout(function() {
             modal.classList.remove('active');
+            correct.setAttribute('id', '{');
+            spot.setAttribute('id', '}');
+            invalid.setAttribute('id', '|');
+            modal.style.zIndex = 1;
         }, 250);
     }
+}
+
+function newGame() {
+    the_word = backup_gameWords[Math.floor(Math.random() * backup_gameWords.length)];
+    green_letters = [];
+    yellow_letters = [];
+    for(let i = 0; i < rows.length; i++) {
+        rows[i].classList.remove("active");
+        let rowEle = rows[i].children;
+        rowReset(rowEle);
+    }
+
+    active_row = 0;
+    rows[active_row].classList.add('active');
+    charSpots = rows[active_row].children;
+    p = 0;
+    k = 0;
+    user_word = [];
+    let letterKey = document.getElementsByClassName("alpha");
+    for(let j = 0; j < letterKey.length; j++) {
+        if(letterKey[j].classList.contains("correct")) {
+            letterKey[j].classList.remove("correct");
+        }
+        else if(letterKey[j].classList.contains("spot")) {
+            letterKey[j].classList.remove("spot");
+        }
+        else if(letterKey[j].classList.contains("invalid")) {
+            letterKey[j].classList.remove("invalid");
+        }
+    }
+}
+
+function rowReset(rowEle) {
+    for(let i = 0; i < rowEle.length; i++) {
+        rowEle[i].setAttribute("id", "");
+        rowEle[i].firstChild.innerHTML = '';
+        rowEle[i].classList.remove("sel");
+    }
+}
+
+function statsMod() {
+    statsModal.style.zIndex = 4;
+    statsModal.classList.add('active');
+    setTimeout(function() {
+        sModalCont.classList.add('active');
+    }, 100);
+}
+
+span.onclick = function() {
+    sModalCont.classList.remove('active');
+    
+    setTimeout(function() {
+        statsModal.style.zIndex = 2;
+        statsModal.classList.remove('active');
+    }, 250);
+}
+
+function infoModalDown() {
+    modalCont.classList.remove('active');
+
+    setTimeout(function() {
+        modal.classList.remove('active');
+        correct.setAttribute('id', '{');
+        spot.setAttribute('id', '}');
+        invalid.setAttribute('id', '|');
+        modal.style.zIndex = 1;
+    }, 250);
+}
+
+function statsModalDown() {
+    sModalCont.classList.remove('active');
+
+    setTimeout(function() {
+        statsModal.classList.remove('active');
+        modal.style.zIndex = 1;
+    }, 250);
+}
+
+window.onclick = function(event) {
+    if (event.target == statsModal) {
+        sModalCont.classList.remove('active');
+
+        setTimeout(function() {
+            statsModal.style.zIndex = 2;
+            statsModal.classList.remove('active');
+        }, 250);
+    }
+}
+
+function infoModal() {
+    modal.classList.add('active');
+    modal.style.zIndex = 5;
+        setTimeout(function() {
+            modalCont.classList.add('active');
+            setTimeout(function() {
+                correct.setAttribute('id', 'correct');
+                spot.setAttribute('id', 'spot');
+                invalid.setAttribute('id', 'invalid');
+            }, 250);
+        }, 100);
 }
 
 function warning(warning, delay) {
@@ -313,12 +533,13 @@ function game_checker(gWord, uWord, green, yellow, gray) {
                     }
                     else if(active_row == 6) {
                         warning("The word was: " + the_word, 3000);
+                        statUpdates(0);
                     }
                 } 
                 else if(temp_user_word == the_word) {
                     console.log("Winner!");
                     warning("<strong>Amazing!</strong>", 3000);
-                    bop();
+                    statUpdates(1);
                 }
             }  
         }, 250);
@@ -335,18 +556,6 @@ function game_checker(gWord, uWord, green, yellow, gray) {
 }
 
 let p = 0;
-
-function bop() {
-    if(p < charSpots.length) {
-        object = charSpots[p];
-        charSpots[p].classList.add("bop");
-        setTimeout(function() {
-            object.classList.remove("bop");
-        }, 250);
-        p++;
-        bop();
-    }
-}
 
 function keyboardUpdate(letters, value) {
 
@@ -388,6 +597,129 @@ function keyboardUpdate(letters, value) {
             }
         }
     }
+}
+
+function statUpdates(value) {
+    wins = localStorage.getItem("wins");
+    gamesPlayed = localStorage.getItem("gPlayed");
+    percentWin = localStorage.getItem("pWin");
+    cStreak = localStorage.getItem("cStreak");
+    mStreak = localStorage.getItem("mStreak");
+
+    wins = parseInt(wins) + value;
+    console.log(wins);
+    gamesPlayed = parseInt(gamesPlayed);
+    gamesPlayed++;
+    console.log(gamesPlayed);
+    percentWin = (Math.round((wins / gamesPlayed) * 100));
+    if(value == 1) 
+    {
+        cStreak++;
+    }
+    else {
+        cStreak = 0;
+    }
+
+    if(cStreak >= mStreak) {
+        mStreak = cStreak;
+    }
+
+    let docWins = document.getElementById("played");
+    let docPer = document.getElementById("winPercent");
+    let docCStreak = document.getElementById("currentStreak");
+    let docMStreak = document.getElementById("maxStreak");
+
+    let oneVar = localStorage.getItem("one");
+    let twoVar = localStorage.getItem("two");
+    let threeVar = localStorage.getItem("three");
+    let fourVar = localStorage.getItem("four");
+    let fiveVar = localStorage.getItem("five");
+    let sixVar = localStorage.getItem("six");
+
+    let one = document.getElementById("one");
+    let two = document.getElementById("two");
+    let three = document.getElementById("three");
+    let four = document.getElementById("four");
+    let five = document.getElementById("five");
+    let six = document.getElementById("six");
+
+    let oV = parseInt(localStorage.getItem("one"));
+    let twV = parseInt(localStorage.getItem("two"));
+    let thV = parseInt(localStorage.getItem("three"));
+    let foV = parseInt(localStorage.getItem("four"));
+    let fiV = parseInt(localStorage.getItem("five"));
+    let sV = parseInt(localStorage.getItem("six"));
+
+    switch(active_row) {
+        case 0:
+            oV++;
+        break;
+
+        case 1:
+            twV++;
+        break;
+
+        case 2:
+            thV++;
+        break;
+
+        case 3:
+            foV++;
+        break;
+
+        case 4:
+            fiV++;
+        break;
+
+        case 5:
+            sV++;
+        break;
+    }
+
+    one.children[0].style.width = Math.round(((oV / gamesPlayed) * 100) - 10).toString() + "%";
+    oneVar = oV;
+    localStorage.setItem("one", oV);
+    one.children[0].innerHTML = oV.toString();
+
+    two.children[0].style.width = Math.round(((twV / gamesPlayed) * 100) - 10).toString() + "%";
+    twoVar = twV;
+    localStorage.setItem("two", twV);
+    two.children[0].innerHTML = twV.toString();
+
+    three.children[0].style.width = Math.round(((thV / gamesPlayed) * 100) - 10).toString() + "%";
+    threeVar = thV;
+    localStorage.setItem("three", thV);
+    three.children[0].innerHTML = thV.toString();
+
+    four.children[0].style.width = Math.round(((foV / gamesPlayed) * 100) - 10).toString() + "%";
+    fourVar = foV;
+    localStorage.setItem("four", foV);
+    four.children[0].innerHTML = foV.toString();
+
+    five.children[0].style.width = Math.round(((fiV / gamesPlayed) * 100) - 10).toString() + "%";
+    fiveVar = fiV;
+    localStorage.setItem("five", fiV);
+    five.children[0].innerHTML = fiV.toString();
+
+    six.children[0].style.width = Math.round(((sV / gamesPlayed) * 100) - 10).toString() + "%";
+    sixVar = sV;
+    localStorage.setItem("six", sV);
+    six.children[0].innerHTML = sV.toString();
+
+    docWins.innerHTML = wins.toString() + "<p style='width: 100%; font-size: 12px;'>Played</p>";
+    docPer.innerHTML = percentWin.toString() + "% <p style='width: 100%; font-size: 12px;'>Win %</p>";
+    docCStreak.innerHTML = cStreak.toString() + "<p style='width: 100%; font-size: 12px;'>Current Streak</p>";
+    docMStreak.innerHTML = mStreak.toString() + "<p style='width: 100%; font-size: 12px;'>Max Streak</p>";
+
+    localStorage.setItem("wins", wins);
+    localStorage.setItem("gPlayed", gamesPlayed);
+    localStorage.setItem("pWin", percentWin);
+    localStorage.setItem("cStreak", cStreak);
+    localStorage.setItem("mStreak", mStreak);
+
+    setTimeout(function() {
+        statsMod();
+    }, 3000);
 }
 
 const acceptable_words = ['aahed',
