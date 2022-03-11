@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unlirdle - by ArtToVideoGames</title>
+    <title>Unlirdle - The Unlimited Wordle</title>
     <link rel="stylesheet" href="style.css">
     <script src="scripts/code.js" defer></script>
     <script src="https://kit.fontawesome.com/c70c67b49d.js" crossorigin="anonymous" defer></script>
@@ -15,7 +15,10 @@
             <h1 class="logo">Unlirdle</h1>
         </div>
         <div class="rightSide">
-            <p class="menu"><a href="https://github.com/ArtToVideoGames"><i class="fa-brands fa-github fa-lg"></i> Github</a></p>
+            <p class="menu"><a onclick="newGame();"><i class="fa-solid fa-arrow-rotate-right fa-xl"></i></a></p>
+            <p class="menu"><a onclick="statsMod();"><i class="fa-solid fa-chart-column fa-xl"></i></a></p>
+            <p class="menu"><a onclick="infoModal();"><i class="fa-solid fa-circle-question fa-xl"></i></a></p>
+            <p class="menu"><a href="https://github.com/ArtToVideoGames"><i class="fa-brands fa-github fa-xl"></i></a></p>
         </div>
     </div>
 
@@ -23,9 +26,9 @@
         <div class="wm-container" id="wm-container">Test</div>
     </div>
 
-    <div class="modal" id="infoModal">
+    <div class="modal" id="infoModal" onclick="infoModalDown();">
         <div class="m-container" id="m-container">
-            <span data-id="modal-example" class="close">&times;</span>
+            <span data-id="modal-example" class="close" onclick="infoModalDown();">&times;</span>
             <p>Guess the <strong>UNLIRDLE</strong> in six tries.</p>
             <p>Each guess must be a valid five-letter word. Hit the enter button to submit.</p>
             <p>After each guess, the color of the tiles will change to show how close your guess was to the word.</p>
@@ -57,6 +60,29 @@
             <p>The letter <strong>S</strong> is not in the word in any spot.</p>
             <hr>
             <p><strong>Play the UNLIRDLE as many times as you want!</strong></p>
+        </div>
+    </div>
+
+    <div class="statsModal" id="statsModal" onclick="statsModalDown();">
+        <div class="sm-container" id="sm-container">
+            <span data-id="modal-example" class="close" onclick="statsModalDown();">&times;</span>
+            <h2 style="text-align: center; width: 100%;">Statistics</h2>
+            <div class="top-bar">
+                <div id="played" style="width: 75px; text-align: center; font-size: 30px">%<p style="width: 100%; font-size: 12px;">Played</p></div>
+                <div id="winPercent" style="width: 75px; text-align: center; font-size: 30px">%<p style="width: 100%; font-size: 12px;">Win %</p></div>
+                <div id="currentStreak" style="width: 75px; text-align: center; font-size: 30px">%<p style="width: 100%; font-size: 12px;">Current Streak</p></div>
+                <div id="maxStreak" style="width: 75px; text-align: center; font-size: 30px">%<p style="width: 100%; font-size: 12px;">Max Streak</p></div>
+            </div>
+            <hr>
+            <h2 style="text-align:center; width:100%;">Guess Distribution</h2>
+            <div class="guessDis">
+                <div id="one">1 <div id="oneBar">%</div></div>
+                <div id="two">2 <div id="twoBar">%</div></div>
+                <div id="three">3 <div id="threeBar">%</div></div>
+                <div id="four">4 <div id="fourBar">%</div></div>
+                <div id="five">5 <div id="fiveBar">%</div></div>
+                <div id="six">6 <div id="sixBar">%</div></div>
+            </div>
         </div>
     </div>
 
