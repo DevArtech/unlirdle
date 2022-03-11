@@ -210,7 +210,7 @@ window.onload = function () {
     let docCStreak = document.getElementById("currentStreak");
     let docMStreak = document.getElementById("maxStreak");
 
-    docWins.innerHTML = wins.toString() + "<p style='width: 100%; font-size: 12px;'>Played</p>";
+    docWins.innerHTML = gamesPlayed.toString() + "<p style='width: 100%; font-size: 12px;'>Played</p>";
     docPer.innerHTML = percentWin.toString() + "% <p style='width: 100%; font-size: 12px;'>Win %</p>";
     docCStreak.innerHTML = cStreak.toString() + "<p style='width: 100%; font-size: 12px;'>Current Streak</p>";
     docMStreak.innerHTML = mStreak.toString() + "<p style='width: 100%; font-size: 12px;'>Max Streak</p>";
@@ -309,32 +309,49 @@ window.onclick = function(event) {
     }
 }
 
-function newGame() {
-    the_word = backup_gameWords[Math.floor(Math.random() * backup_gameWords.length)];
-    green_letters = [];
-    yellow_letters = [];
-    for(let i = 0; i < rows.length; i++) {
-        rows[i].classList.remove("active");
-        let rowEle = rows[i].children;
-        rowReset(rowEle);
-    }
+let gameValidation = true;
+let manualRestart = true;
 
-    active_row = 0;
-    rows[active_row].classList.add('active');
-    charSpots = rows[active_row].children;
-    p = 0;
-    k = 0;
-    user_word = [];
-    let letterKey = document.getElementsByClassName("alpha");
-    for(let j = 0; j < letterKey.length; j++) {
-        if(letterKey[j].classList.contains("correct")) {
-            letterKey[j].classList.remove("correct");
+function newGame() {
+    if(gameValidation == true) {
+        warning("<strong>Are you sure?<\strong> This will count as a loss. Click again to confirm", 3000);
+        gameValidation = false;    
+        setTimeout(function() {
+            gameValidation = true;
+        }, 10000);
+    } 
+    else {
+        gameValidation = true;
+        if(manualRestart == true) {
+            statUpdates(0, false);
         }
-        else if(letterKey[j].classList.contains("spot")) {
-            letterKey[j].classList.remove("spot");
+        manualRestart = true;
+        the_word = backup_gameWords[Math.floor(Math.random() * backup_gameWords.length)];
+        green_letters = [];
+        yellow_letters = [];
+        for(let i = 0; i < rows.length; i++) {
+            rows[i].classList.remove("active");
+            let rowEle = rows[i].children;
+            rowReset(rowEle);
         }
-        else if(letterKey[j].classList.contains("invalid")) {
-            letterKey[j].classList.remove("invalid");
+
+        active_row = 0;
+        rows[active_row].classList.add('active');
+        charSpots = rows[active_row].children;
+        p = 0;
+        k = 0;
+        user_word = [];
+        let letterKey = document.getElementsByClassName("alpha");
+        for(let j = 0; j < letterKey.length; j++) {
+            if(letterKey[j].classList.contains("correct")) {
+                letterKey[j].classList.remove("correct");
+            }
+            else if(letterKey[j].classList.contains("spot")) {
+                letterKey[j].classList.remove("spot");
+            }
+            else if(letterKey[j].classList.contains("invalid")) {
+                letterKey[j].classList.remove("invalid");
+            }
         }
     }
 }
@@ -533,13 +550,17 @@ function game_checker(gWord, uWord, green, yellow, gray) {
                     }
                     else if(active_row == 6) {
                         warning("The word was: " + the_word, 3000);
-                        statUpdates(0);
+                        statUpdates(0, true);
+                        manualRestart = false;
+                        gameValidation = false;
                     }
                 } 
                 else if(temp_user_word == the_word) {
                     console.log("Winner!");
                     warning("<strong>Amazing!</strong>", 3000);
-                    statUpdates(1);
+                    statUpdates(1, true);
+                    manualRestart = false;
+                    gameValidation = false;
                 }
             }  
         }, 250);
@@ -599,7 +620,7 @@ function keyboardUpdate(letters, value) {
     }
 }
 
-function statUpdates(value) {
+function statUpdates(value, runModal) {
     wins = localStorage.getItem("wins");
     gamesPlayed = localStorage.getItem("gPlayed");
     percentWin = localStorage.getItem("pWin");
@@ -609,7 +630,7 @@ function statUpdates(value) {
     wins = parseInt(wins) + value;
     console.log(wins);
     gamesPlayed = parseInt(gamesPlayed);
-    gamesPlayed++;
+    gamesPlayed += 1;
     console.log(gamesPlayed);
     percentWin = (Math.round((wins / gamesPlayed) * 100));
     if(value == 1) 
@@ -652,27 +673,27 @@ function statUpdates(value) {
 
     switch(active_row) {
         case 0:
-            oV++;
+            oV += value;
         break;
 
         case 1:
-            twV++;
+            twV += value;
         break;
 
         case 2:
-            thV++;
+            thV += value;
         break;
 
         case 3:
-            foV++;
+            foV += value;
         break;
 
         case 4:
-            fiV++;
+            fiV += value;
         break;
 
         case 5:
-            sV++;
+            sV += value;
         break;
     }
 
@@ -706,7 +727,7 @@ function statUpdates(value) {
     localStorage.setItem("six", sV);
     six.children[0].innerHTML = sV.toString();
 
-    docWins.innerHTML = wins.toString() + "<p style='width: 100%; font-size: 12px;'>Played</p>";
+    docWins.innerHTML = gamesPlayed.toString() + "<p style='width: 100%; font-size: 12px;'>Played</p>";
     docPer.innerHTML = percentWin.toString() + "% <p style='width: 100%; font-size: 12px;'>Win %</p>";
     docCStreak.innerHTML = cStreak.toString() + "<p style='width: 100%; font-size: 12px;'>Current Streak</p>";
     docMStreak.innerHTML = mStreak.toString() + "<p style='width: 100%; font-size: 12px;'>Max Streak</p>";
@@ -717,9 +738,11 @@ function statUpdates(value) {
     localStorage.setItem("cStreak", cStreak);
     localStorage.setItem("mStreak", mStreak);
 
-    setTimeout(function() {
-        statsMod();
-    }, 3000);
+    if(runModal == true) {
+        setTimeout(function() {
+            statsMod();
+        }, 3000);
+    }
 }
 
 const acceptable_words = ['aahed',
