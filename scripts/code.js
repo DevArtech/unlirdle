@@ -15,6 +15,8 @@ const letters = document.getElementsByClassName('alpha');
 const rows = document.getElementsByClassName('row');
 let charSpots = [];
 
+const statsButtons = document.getElementById('buttons');
+
 let active_row = 0;
 
 let word_list = [];
@@ -353,6 +355,9 @@ function newGame() {
                 letterKey[j].classList.remove("invalid");
             }
         }
+        setTimeout(function() {
+            statsButtons.style.display = "none";
+        }, 250);
     }
 }
 
@@ -741,8 +746,45 @@ function statUpdates(value, runModal) {
     if(runModal == true) {
         setTimeout(function() {
             statsMod();
+            statsButtons.style.display = "flex";
         }, 3000);
     }
+}
+
+let shareBlock = [];
+
+
+function shareGen() {
+    let shareBlock = [];
+    let rowsPlayed = [];
+    for(let i = 0; i < rows.length; i++) {
+
+        let line = [];
+        row = rows[i];
+        let rowLetters = row.children;
+        for(let j = 0; j < rowLetters.length; j++) {
+            if(rowLetters[j].getAttribute("id") == "correct") {
+                line.push("🟩");
+            }
+            else if(rowLetters[j].getAttribute("id") == "spot") {
+                line.push("🟨");
+            }
+            else if(rowLetters[j].getAttribute("id") == "invalid") {
+                line.push("⬛");
+            }
+        }
+        shareLine = line.join('');
+        shareBlock.push(shareLine);
+        if(rows[i].classList.contains("active")) {
+            rowsPlayed.push(rows[i]);
+        }
+    }
+
+    finalizedBlock = shareBlock.join('\n');
+    console.log(finalizedBlock);
+
+    navigator.clipboard.writeText('Unlirdle \n' + gamesPlayed.toString() + '\n' + rowsPlayed.length + "/6 \n" + finalizedBlock);
+    warning("Copied to clipboard", 1000);
 }
 
 const acceptable_words = ['aahed',
