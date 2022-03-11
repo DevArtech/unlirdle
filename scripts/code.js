@@ -231,7 +231,7 @@ window.onload = function () {
     let fiV = parseInt(localStorage.getItem("five"));
     let sV = parseInt(localStorage.getItem("six"));
     if(oV > 0) {
-        one.children[0].style.width = Math.round(((oV / gamesPlayed) * 100) - 10).toString() + "%";
+        one.children[0].style.width = Math.round(((oV / wins) * 100) - 10).toString() + "%";
         one.children[0].innerHTML = oV.toString();
     }
     else {
@@ -240,7 +240,7 @@ window.onload = function () {
     }
 
     if(twV > 0) {
-        two.children[0].style.width = Math.round(((twV / gamesPlayed) * 100) - 10).toString() + "%";
+        two.children[0].style.width = Math.round(((twV / wins) * 100) - 10).toString() + "%";
         two.children[0].innerHTML = twV.toString();
     }
     else {
@@ -249,7 +249,7 @@ window.onload = function () {
     }
 
     if(thV > 0) {
-        three.children[0].style.width = Math.round(((thV / gamesPlayed) * 100) - 10).toString() + "%";
+        three.children[0].style.width = Math.round(((thV / wins) * 100) - 10).toString() + "%";
         three.children[0].innerHTML = thV.toString();
     }
     else {
@@ -258,7 +258,7 @@ window.onload = function () {
     }
 
     if(foV > 0) {
-        four.children[0].style.width = Math.round(((foV / gamesPlayed) * 100) - 10).toString() + "%";
+        four.children[0].style.width = Math.round(((foV / wins) * 100) - 10).toString() + "%";
         four.children[0].innerHTML = foV.toString();
     }
     else {
@@ -267,7 +267,7 @@ window.onload = function () {
     }
 
     if(fiV > 0) {
-        five.children[0].style.width = Math.round(((fiV / gamesPlayed) * 100) - 10).toString() + "%";
+        five.children[0].style.width = Math.round(((fiV / wins) * 100) - 10).toString() + "%";
         five.children[0].innerHTML = fiV.toString();
     }
     else {
@@ -276,7 +276,7 @@ window.onload = function () {
     }
 
     if(sV > 0) {
-        six.children[0].style.width = Math.round(((sV / gamesPlayed) * 100) - 10).toString() + "%";
+        six.children[0].style.width = Math.round(((sV / wins) * 100) - 10).toString() + "%";
         six.children[0].innerHTML = sV.toString();
     }
     else {
@@ -476,6 +476,7 @@ function removeLetter() {
 }
 
 let k = 0;
+let yellow_letters_temp = [];
 
 function game_checker(gWord, uWord, green, yellow, gray) {
     let temp_user_word = user_word.join('').toLowerCase();
@@ -484,7 +485,6 @@ function game_checker(gWord, uWord, green, yellow, gray) {
     if(acceptable_words.includes(player_word) || backup_gameWords.includes(player_word)) {
     if(uWord.length == 5) {
     setTimeout(function() { 
-        let yellow_letters_temp = [];
         gWord = gWord.toUpperCase();
 
         let gArray = gWord.split("");
@@ -517,7 +517,7 @@ function game_checker(gWord, uWord, green, yellow, gray) {
                         else {
                             yellow_letters_temp.push(char);
                             charSpots[k].setAttribute('id', 'spot');
-                            yellow = yellow_letters_temp;
+                            yellow.push(char);
                             k++;
                             game_checker(the_word, user_word, green_letters, yellow_letters, gray_letters);
                         }   
@@ -552,6 +552,7 @@ function game_checker(gWord, uWord, green, yellow, gray) {
                         k = 0;
                         user_word = [];
                         keyboardUpdate(lettersInput, letterValue);
+                        yellow_letters_temp = [];
                     }
                     else if(active_row == 6) {
                         warning("The word was: " + the_word, 3000);
@@ -702,32 +703,32 @@ function statUpdates(value, runModal) {
         break;
     }
 
-    one.children[0].style.width = Math.round(((oV / gamesPlayed) * 100) - 10).toString() + "%";
+    one.children[0].style.width = Math.round(((oV / wins) * 100) - 10).toString() + "%";
     oneVar = oV;
     localStorage.setItem("one", oV);
     one.children[0].innerHTML = oV.toString();
 
-    two.children[0].style.width = Math.round(((twV / gamesPlayed) * 100) - 10).toString() + "%";
+    two.children[0].style.width = Math.round(((twV / wins) * 100) - 10).toString() + "%";
     twoVar = twV;
     localStorage.setItem("two", twV);
     two.children[0].innerHTML = twV.toString();
 
-    three.children[0].style.width = Math.round(((thV / gamesPlayed) * 100) - 10).toString() + "%";
+    three.children[0].style.width = Math.round(((thV / wins) * 100) - 10).toString() + "%";
     threeVar = thV;
     localStorage.setItem("three", thV);
     three.children[0].innerHTML = thV.toString();
 
-    four.children[0].style.width = Math.round(((foV / gamesPlayed) * 100) - 10).toString() + "%";
+    four.children[0].style.width = Math.round(((foV / wins) * 100) - 10).toString() + "%";
     fourVar = foV;
     localStorage.setItem("four", foV);
     four.children[0].innerHTML = foV.toString();
 
-    five.children[0].style.width = Math.round(((fiV / gamesPlayed) * 100) - 10).toString() + "%";
+    five.children[0].style.width = Math.round(((fiV / wins) * 100) - 10).toString() + "%";
     fiveVar = fiV;
     localStorage.setItem("five", fiV);
     five.children[0].innerHTML = fiV.toString();
 
-    six.children[0].style.width = Math.round(((sV / gamesPlayed) * 100) - 10).toString() + "%";
+    six.children[0].style.width = Math.round(((sV / wins) * 100) - 10).toString() + "%";
     sixVar = sV;
     localStorage.setItem("six", sV);
     six.children[0].innerHTML = sV.toString();
