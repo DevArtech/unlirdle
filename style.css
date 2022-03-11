@@ -398,3 +398,25 @@ html, body {
     background-color: #eeeeee;
     cursor: pointer;
 }
+
+.buttons {
+    margin-top: 10px;
+    display: none;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.buttons > div {
+    background-color: #489e5d;
+    width: 100%;
+    text-align: center;
+    line-height: 50px;
+    height: 50px;
+    border-radius: 5px;
+    transition: .2s background-color ease-in-out;
+}
+
+.buttons > div:hover {
+    background-color: #4bb967;
+    cursor: pointer;
+}
