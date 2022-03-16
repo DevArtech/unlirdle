@@ -433,11 +433,13 @@ function infoModal() {
 
 function warning(warning, delay) {
     warnModal.classList.add('active');
+    warnModal.style.zIndex = "8";
     wModalCont.innerHTML = warning;
     wModalCont.classList.add('active');
     setTimeout(function() {
         wModalCont.classList.remove('active');
         setTimeout(function () {
+            warnModal.style.zIndex = "0";
             warnModal.classList.remove('active')
         }, 250);
     }, delay);
