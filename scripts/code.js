@@ -39,6 +39,46 @@ let fourVar = localStorage.getItem("four");
 let fiveVar = localStorage.getItem("five");
 let sixVar = localStorage.getItem("six");
 
+let [milliseconds,seconds,minutes] = [0,0,0];
+let timerRef = document.querySelector('.timeSolved');
+let int = null;
+
+function startTimer() {
+    if(int!==null){
+        clearInterval(int);
+    }
+    int = setInterval(displayTimer,10);
+}
+
+function stopTimer() {
+    clearInterval(int);
+}
+
+function resetTimer() {
+    clearInterval(int);
+    [milliseconds,seconds,minutes] = [0,0,0];
+    timerRef.innerHTML = '00:00:000';
+}
+
+function displayTimer(){
+    milliseconds+=10;
+
+    if(milliseconds == 1000){
+        milliseconds = 0;
+        seconds++;
+
+        if(seconds == 60){
+            seconds = 0;
+            minutes++;
+        }
+    }
+
+    let m = minutes < 10 ? "0" + minutes : minutes;
+    let s = seconds < 10 ? "0" + seconds : seconds;
+    let ms = milliseconds < 10 ? "00" + milliseconds : milliseconds < 100 ? "0" + milliseconds : milliseconds;
+    timerRef.innerHTML = `${m} : ${s} : ${ms}`;
+}
+
 window.addEventListener('keydown', (event) =>
 {
     if(event.key === 'a') 
@@ -160,6 +200,8 @@ window.onload = function () {
         document.getElementById("keyboard").style.marginTop = "auto";
         document.getElementById("keyboard").style.marginBottom = "10px";
     }
+
+    startTimer();
 
 
     //localStorage.removeItem("hasCodeRunBefore"); // REMOVE LATER
@@ -326,6 +368,8 @@ function newGame() {
         }, 10000);
     } 
     else {
+        resetTimer();
+        startTimer();
         warning("New game started", 3000);
         gameValidation = true;
         if(manualRestart == true) {
@@ -568,6 +612,7 @@ function game_checker(gWord, uWord, green, yellow, gray) {
                     }
                 } 
                 else if(temp_user_word == the_word) {
+                    stopTimer();
                     console.log("Winner!");
                     warning("<strong>Amazing!</strong>", 3000);
                     statUpdates(1, true);
@@ -790,7 +835,8 @@ function shareGen() {
     finalizedBlock = shareBlock.join('\n');
     console.log(finalizedBlock);
 
-    navigator.clipboard.writeText('Unlirdle \n' + gamesPlayed.toString() + '\n' + rowsPlayed.length + "/6 \n" + finalizedBlock);
+    navigator.clipboard.writeText('Unlirdle\n' + gamesPlayed.toString() + '\n' + rowsPlayed.length + "/6 \n" + minutes + ":" 
+    + seconds + ":" + milliseconds + "\n" + finalizedBlock);
     warning("Copied to clipboard", 1000);
 }
 
