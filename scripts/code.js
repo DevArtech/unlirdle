@@ -605,6 +605,7 @@ function game_checker(gWord, uWord, green, yellow, gray) {
                         yellow_letters_temp = [];
                     }
                     else if(active_row == 6) {
+                        stopTimer();
                         warning("The word was: " + the_word, 3000);
                         statUpdates(0, true);
                         manualRestart = false;
