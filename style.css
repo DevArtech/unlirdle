@@ -251,6 +251,12 @@ html, body {
     }
 }
 
+@media (max-width: 400px) {
+    .board {
+        width: 100vw;
+    }
+}
+
 .row {
     display: flex;
     justify-content: space-between;
