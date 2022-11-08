@@ -115,6 +115,7 @@ html, body {
     transform: translate(-50%, 0%);
     opacity: 0;
     max-width: 500px;
+    height: auto;
     max-height: 550px;
     border-radius: 10px;
     color: #eeeeee;
@@ -303,12 +304,12 @@ html, body {
 
 .exLetter {
     outline: 1px solid #aaaaaa;
-    width: 4vw;
-    height: 4vw;
+    min-width: 45px;
+    height: 45px;
+    line-height: 45px;
     border-radius: 5px;
     text-align: center;
-    line-height: 4vw;
-    font-size: 3vw;
+    font-size: 1.5em;
     font-weight: 600;
     transition: transform 0.8s;
 }
