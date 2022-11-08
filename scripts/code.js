@@ -129,6 +129,9 @@ window.addEventListener('keydown', (event) =>
     else if(event.key === '/') {
         localStorage.removeItem("hasCodeRunBefore");
     }
+    else if(event.key === 'Shift') {
+        newGame();
+    }
 });
 
 function Enter() {
@@ -323,6 +326,7 @@ function newGame() {
         }, 10000);
     } 
     else {
+        warning("New game started", 3000);
         gameValidation = true;
         if(manualRestart == true) {
             statUpdates(0, false);
