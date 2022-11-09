@@ -437,12 +437,14 @@ window.onclick = function(event) {
 }
 
 let gameValidation = true;
+let preFinalReset = false;
 let manualRestart = true;
 
 function newGame() {
     if(gameValidation == true) {
         warning("<strong>Are you sure?<\strong> This will count as a loss. Click again to confirm", 3000);
-        gameValidation = false;    
+        gameValidation = false;
+        preFinalReset = true;    
         setTimeout(function() {
             gameValidation = true;
         }, 10000);
@@ -450,7 +452,11 @@ function newGame() {
     else {
         resetTimer();
         startTimer();
-        warning("New game started", 3000);
+        if(preFinalReset) {
+            warning(`The word was ${the_word}`, 1000);
+        } else {
+            warning("New game started", 1000);
+        }
         gameValidation = true;
         if(manualRestart == true) {
             statUpdates(0, false);
