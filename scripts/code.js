@@ -40,8 +40,22 @@ let fiveVar = localStorage.getItem("five");
 let sixVar = localStorage.getItem("six");
 
 let [milliseconds,seconds,minutes] = [0,0,0];
+let [highMili,highSec,highMin] = [localStorage.getItem("mili"),localStorage.getItem("sec"),localStorage.getItem("min")];
 let timerRef = document.querySelector('.timeSolved');
+let highScore = document.querySelector('.hs');
 let int = null;
+
+var emitterSize = 20,
+dotQuantity = 40,
+dotSizeMin = 6,
+dotSizeMax = 8,
+speed = 2.4,
+gravity = 0.7,
+explosionQuantity = 5,
+emitter = document.querySelector('#emitter'),
+explosions = [],
+currentExplosion = 0,
+container, i, move;
 
 function startTimer() {
     if(int!==null){
@@ -52,12 +66,74 @@ function startTimer() {
 
 function stopTimer() {
     clearInterval(int);
+    let newHighscore = false;
+
+    if(highMin == null) {
+        highMin = minutes;
+        highSec = seconds
+        highMili = milliseconds;
+
+        localStorage.setItem("mili", highMili);
+        localStorage.setItem("sec", highSec);
+        localStorage.setItem("min", highMin);
+        newHighscore = true;
+    }
+    else if(minutes < highMin) {
+        highMin = minutes;
+        highSec = seconds
+        highMili = milliseconds;
+
+        localStorage.setItem("mili", highMili);
+        localStorage.setItem("sec", highSec);
+        localStorage.setItem("min", highMin);
+        newHighscore = true;
+    }
+    else if(minutes == highMin) {
+        if(seconds < highSec) {
+            highMin = minutes;
+            highSec = seconds
+            highMili = milliseconds;
+
+            localStorage.setItem("mili", highMili);
+            localStorage.setItem("sec", highSec);
+            localStorage.setItem("min", highMin);
+            newHighscore = true;
+        } else if(seconds == highSec) {
+            if(milliseconds < highMili) {
+                highMin = minutes;
+                highSec = seconds
+                highMili = milliseconds;
+
+                localStorage.setItem("mili", highMili);
+                localStorage.setItem("sec", highSec);
+                localStorage.setItem("min", highMin);
+                newHighscore = true;
+            }
+        }
+    }
+
+    if(newHighscore) {
+        let m = minutes < 10 ? "0" + minutes : minutes;
+        let s = seconds < 10 ? "0" + seconds : seconds;
+        let ms = milliseconds < 10 ? "00" + milliseconds : milliseconds < 100 ? "0" + milliseconds : milliseconds;
+        highScore.classList.add('newHS');
+        highScore.innerHTML = `🎉 New Highscore! ${m}:${s}:${ms}`;
+    }
+    else {
+        let m = highMin < 10 ? "0" + highMin : highMin;
+        let s = highSec < 10 ? "0" + highSec : highSec;
+        let ms = highMili < 10 ? "00" + highMili : highMili < 100 ? "0" + highMili : highMili;
+        highScore.innerHTML = `Fastest Solved: ${m}:${s}:${ms}`;
+    }
 }
 
-function resetTimer() {
+
+async function resetTimer() {
     clearInterval(int);
     [milliseconds,seconds,minutes] = [0,0,0];
     timerRef.innerHTML = '00:00:000';
+    await new Promise(resolve => setTimeout(resolve, 500));
+    highScoreclassList.remove('newHS');
 }
 
 function displayTimer(){
@@ -206,7 +282,7 @@ window.onload = function () {
 
     //localStorage.removeItem("hasCodeRunBefore"); // REMOVE LATER
 
-    if (localStorage.getItem("hasCodeRunBefore") === null) {
+    if (localStorage.getItem("hasCodeRunBefore") == null) {
         setTimeout(function() {
             modal.classList.add('active');
             setTimeout(function() {
@@ -232,6 +308,9 @@ window.onload = function () {
         localStorage.setItem("four", 0);
         localStorage.setItem("five", 0);
         localStorage.setItem("six", 0);
+        localStorage.removeItem('mili');
+        localStorage.removeItem('sec');
+        localStorage.removeItem('min');
     }
 
     for (var i = 0; i < letters.length; i++) {
