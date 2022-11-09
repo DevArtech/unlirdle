@@ -120,6 +120,7 @@ function stopTimer() {
         highScore.innerHTML = `🎉 New Highscore! ${m}:${s}:${ms}`;
     }
     else {
+        highScore.classList.remove('newHS');
         let m = highMin < 10 ? "0" + highMin : highMin;
         let s = highSec < 10 ? "0" + highSec : highSec;
         let ms = highMili < 10 ? "00" + highMili : highMili < 100 ? "0" + highMili : highMili;
