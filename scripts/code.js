@@ -443,24 +443,25 @@ let preFinalReset = false;
 let manualRestart = true;
 
 function newGame() {
+    statsModalDown();
     if (gameValidation == true) {
         warning("<strong>Are you sure?<\strong> This will count as a loss. Click again to confirm", 3000);
-        gameValidation = false;
         preFinalReset = true;
+        gameValidation = false;
         setTimeout(function () {
             gameValidation = true;
         }, 10000);
     }
     else {
-        preFinalReset = false;
         resetTimer();
         startTimer();
-        if (preFinalReset) {
+        if (preFinalReset == true) {
             warning(`The word was ${the_word}`, 1000);
         } else {
-            warning("New game started", 1000);
+            console.log("New game");
         }
         gameValidation = true;
+        preFinalReset = false;
         if (manualRestart == true) {
             statUpdates(0, false);
         }
